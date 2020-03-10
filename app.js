@@ -2,6 +2,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 
+const cuteCatRouter = require("./routes/cuteCatRoutes");
+
 var app = express();
 
 app.use((req, _, next) => {
@@ -11,16 +13,14 @@ app.use((req, _, next) => {
 });
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-app.get("/cute-cat", (req, res) => {
-  res.send({ title: "look at this cutie" });
-});
+app.use("/cute-cats", cuteCatRouter);
 
-app.post("/cute-cat", (req, res) => {
-  res.send({ title: "posted cute cat" });
-});
-
-app.get("/", function(req, res, next) {
+app.get("/", function(req, res) {
   res.send({ title: "Express" });
+});
+
+app.use("*", (req, res) => {
+  res.status(404).send("Page not found");
 });
 
 module.exports = app;
