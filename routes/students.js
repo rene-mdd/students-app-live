@@ -8,10 +8,18 @@ let students = [
     age: 30,
     class: "FBW101",
     location: "BER"
+  },
+  {
+    name: "Rene",
+    lastname: "Roberto",
+    age: 32,
+    class: "FBW21",
+    location: "Wedding"
   }
 ];
 
 // - GET (all, individual)
+
 router.get("/", (req, res) => {
   res.status(200).json(students);
 });
