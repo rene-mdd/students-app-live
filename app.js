@@ -1,6 +1,4 @@
 const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -15,5 +13,17 @@ app.use('/api', function (req, res, next) {
 })
 app.use("/api/students", studentRoutes);
 
+
+app.post("/api/students", (req, res)=>{
+	fs.readFile('/data/students.json', (err, data) =>{
+		var parsedData = JSON.parse(data);
+		parsedData.push(req.body)
+		fs.writeFile("/data/students.json", parsedData, function(err){
+		if (err) throw err;
+		console.log(data);
+	} )
+})
+
+})
 
 module.exports = app;

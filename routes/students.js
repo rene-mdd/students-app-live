@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
-var data = fs.readFileSync('./data/students.json');
-var words = JSON.parse(data);
-console.log(words)
+// var data = fs.readFileSync('./data/students.json');
+// var words = JSON.parse(data);
+// console.log(words)
 
 
 
@@ -67,19 +67,33 @@ router.delete("/:name", (req, res) => {
   res.send(students);
 });
 // - POST (individual)
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   if (req.body) {
-    students.push(req.body);
-    // var data = JSON.stringify(words, null, 2);
-    // fs.writeFile('./data/students.json', data,
-    //  function(err){console.log(err)})
+    students.push(req.body)
     return res.send({
       status: "success",
       message: `student with name: ${req.body.name} added`
     });
+  
   }
 
   res.send("NO!");
+  next();
 });
+
+
+// router.post("/api/students", (req, res)=>{
+// 	fs.readFile('/data/students.json', (err, data) =>{
+// 		var parsedData = JSON.parse(data);
+// 		parsedData.push(req.body)
+// 		fs.writeFile("/data/students.json", parsedData, function(err){
+// 		if (err) throw err;
+// 		console.log(data);
+// 	} )
+// })
+
+// })
+
+
 
 module.exports = router;
