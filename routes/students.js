@@ -1,5 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
+const path = require("path");
+var data = fs.readFileSync('./data/students.json');
+var words = JSON.parse(data);
+console.log(words)
+
+
 
 let students = [
   {
@@ -63,6 +70,9 @@ router.delete("/:name", (req, res) => {
 router.post("/", (req, res) => {
   if (req.body) {
     students.push(req.body);
+    // var data = JSON.stringify(words, null, 2);
+    // fs.writeFile('./data/students.json', data,
+    //  function(err){console.log(err)})
     return res.send({
       status: "success",
       message: `student with name: ${req.body.name} added`
