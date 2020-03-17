@@ -8,6 +8,12 @@ const app = express();
 const studentRoutes = require("./routes/students");
 
 app.use(express.json());
+app.use('/api', function (req, res, next) {
+	console.log(`Method: ${req.method} on route ${req.originalUrl}`)
+    console.log(req.body)
+	next()
+})
 app.use("/api/students", studentRoutes);
+
 
 module.exports = app;
