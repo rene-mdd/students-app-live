@@ -2,28 +2,14 @@ const express = require("express");
 
 const app = express();
 
+//middle ware imports
+const logs = require("./middleware/logs");
+
 // Routes
 const studentRoutes = require("./routes/students");
-
+// app.set('port', 2100);
 app.use(express.json());
-app.use('/api', function (req, res, next) {
-	console.log(`Method: ${req.method} on route ${req.originalUrl}`)
-    console.log(req.body)
-	next()
-})
+app.use('/api', logs);
 app.use("/api/students", studentRoutes);
-
-
-app.post("/api/students", (req, res)=>{
-	fs.readFile('/data/students.json', (err, data) =>{
-		var parsedData = JSON.parse(data);
-		parsedData.push(req.body)
-		fs.writeFile("/data/students.json", parsedData, function(err){
-		if (err) throw err;
-		console.log(data);
-	} )
-})
-
-})
 
 module.exports = app;

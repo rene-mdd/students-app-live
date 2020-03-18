@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
+const studentsFilePath = path.join(__dirname, "../data/students.json");
+console.log(studentsFilePath);
+app.set('port', 2100);
 // var data = fs.readFileSync('./data/students.json');
 // var words = JSON.parse(data);
 // console.log(words)
